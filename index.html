@@ -18,7 +18,7 @@
 
     .container { max-width: 1100px; margin: auto; padding: 20px; }
 
-    /* INPUT BOX */
+    /* IP INPUT BOX */
     #ipBox {
         margin-bottom: 20px;
         background: rgba(0,0,0,0.5);
@@ -27,13 +27,14 @@
         display: inline-block;
     }
 
-    #ipInput, #portInput {
+    #ipInput {
         padding: 8px;
         border-radius: 6px;
         border: none;
         margin-right: 8px;
         text-align: center;
         font-size: 15px;
+        width: 200px;
     }
 
     #saveBtn {
@@ -61,21 +62,16 @@
         font-weight: bold;
         color: #ccc;
         border-bottom: 3px solid transparent;
-        transition: 0.3s;
     }
-
-    .tab.active {
-        color: #fff;
-        border-bottom: 3px solid #1e90ff;
-    }
+    .tab.active { color: #fff; border-bottom: 3px solid #1e90ff; }
 
     .section { display: none; }
     .section.active { display: block; }
 
-    /* Grid cards */
+    /* Grid */
     .grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         gap: 10px;
         margin-bottom: 25px;
     }
@@ -105,7 +101,6 @@
         cursor: pointer;
     }
 
-    /* Status box */
     #status {
         margin-top: 20px;
         background: rgba(0,0,0,0.5);
@@ -115,8 +110,8 @@
         font-size: 16px;
     }
 </style>
-
 </head>
+
 <body>
 
 <div class="container">
@@ -124,133 +119,122 @@
     <h1>PS5 Host Payloads – GitHub Edition</h1>
     <p><img src="img/PS_Loaders.png" width="128"></p>
 
-    <!-- ================= IP + PORT ================= -->
+    <!-- INPUT IP -->
     <div id="ipBox">
-        <input id="ipInput" type="text" placeholder="Enter PS5 IP" style="width:160px;">
-        <input id="portInput" type="text" placeholder="Port" style="width:80px;">
-        <button id="saveBtn" onclick="saveIPPort()">SAVE</button>
+        <input id="ipInput" type="text" placeholder="Enter PS5 IP">
+        <button id="saveBtn" onclick="saveIP()">Save</button>
     </div>
 
-    <!-- ================= TABS ================= -->
+    <!-- Tabs -->
     <div class="tabs">
-        <div class="tab active" onclick="switchTab(1)">قسم 1</div>
-        <div class="tab" onclick="switchTab(2)">قسم 2</div>
-        <div class="tab" onclick="switchTab(3)">قسم 3</div>
+        <div class="tab active" onclick="switchTab(1)">Payloads</div>
+        <div class="tab" onclick="switchTab(2)">Themes</div>
+        <div class="tab" onclick="switchTab(3)">HomeBrew</div>
     </div>
 
-    <!-- ================= SECTION 1 ================= -->
+    <!-- ============ Section 1 ============ -->
     <div id="section1" class="section active">
         <div class="grid">
 
             <div class="payload-card">
                 <img src="img/youtube_block_v1.4.png">
-                <button onclick="sendPayloadWS('payloads/yt_blocker1.4.elf')">YT Block v1.4</button>
+                <button onclick="sendPayloadFile('payloads/yt_blocker1.4.elf')">YT Block v1.4</button>
             </div>
-
+			
             <div class="payload-card">
                 <img src="img/youtube_block.png">
-                <button onclick="sendPayloadWS('payloads/yt_blocker1.3.elf')">YT Block v1.3</button>
-            </div>
-
-            <div class="payload-card">
-                <img src="img/ftpsrv1.4.png">
-                <button onclick="sendPayloadWS('payloads/ftpsrv-ps5.elf')">FTPSRV v1.4</button>
+                <button onclick="sendPayloadFile('payloads/yt_blocker1.3.elf')">YT Block v1.3</button>
             </div>
 
             <div class="payload-card">
                 <img src="img/etaHEN_2.4b.png">
-                <button onclick="sendPayloadWS('payloads/etaHEN-2.4B.bin')">etaHEN 2.4B</button>
+                <button onclick="sendPayloadFile('payloads/etaHEN-2.4B.bin')">etaHEN 2.4B</button>
             </div>
 
             <div class="payload-card">
                 <img src="img/online_json.png">
-                <button onclick="sendPayloadWS('payloads/online_json.elf')">Online ID</button>
+                <button onclick="sendPayloadFile('payloads/online_json.elf')">Online ID</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/backup_download0.png">
+                <button onclick="sendPayloadFile('payloads/backup_download0.elf')">Backup</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/restore_download0.png">
+                <button onclick="sendPayloadFile('payloads/restore_download0.elf')">Restore</button>
             </div>
 
         </div>
     </div>
 
-    <!-- ================= SECTION 2 ================= -->
+    <!-- ============ Section 2 ============ -->
     <div id="section2" class="section">
         <div class="grid">
 
             <div class="payload-card">
                 <img src="img/ghost-of-yotei.png">
-                <button onclick="sendPayloadWS('payloads/themes_ps.elf')">Ghost Theme</button>
+                <button onclick="sendPayloadFile('payloads/themes_ps.elf')">Ghost Theme</button>
             </div>
 
             <div class="payload-card">
                 <img src="img/replace_icon.png">
-                <button onclick="sendPayloadWS('payloads/replace_icon.elf')">Replace Icon</button>
+                <button onclick="sendPayloadFile('payloads/replace_icon.elf')">Replace Icon</button>
             </div>
 
             <div class="payload-card">
                 <img src="img/Apps_logos.png">
-                <button onclick="sendPayloadWS('payloads/Apps_logos.elf')">Apps Logos</button>
-            </div>
-
-            <div class="payload-card">
-                <img src="img/payload9.png">
-                <button onclick="sendPayloadWS('payloads/payload9.bin')">Payload 9</button>
-            </div>
-
-            <div class="payload-card">
-                <img src="img/payload10.png">
-                <button onclick="sendPayloadWS('payloads/payload10.bin')">Payload 10</button>
+                <button onclick="sendPayloadFile('payloads/Apps_logos.elf')">Apps Logos</button>
             </div>
 
         </div>
     </div>
-
-    <!-- ================= SECTION 3 ================= -->
-    <div id="section3" class="section">
+	
+    <!-- ============ Section 3 ============ -->
+	<div id="section3" class="section">
         <div class="grid">
 
             <div class="payload-card">
                 <img src="img/websrv-ps5.png">
-                <button onclick="sendPayloadWS('payloads/websrv-ps5.elf')">websrv-ps5</button>
+                <button onclick="sendPayloadFile('payloads/websrv-ps5.elf')">websrv</button>
             </div>
-
+			
+            <div class="payload-card">
+                <img src="img/ftpsrv1.4.png">
+                <button onclick="sendPayloadFile('payloads/ftpsrv-ps5.elf')">FTPSRV</button>
+            </div>
+			
             <div class="payload-card">
                 <img src="img/ps5debug_v1.0b5.png">
-                <button onclick="sendPayloadWS('payloads/ps5debug_v1.0b5.elf')">PS5Debug</button>
+                <button onclick="sendPayloadFile('payloads/ps5debug_v1.0b5.elf')">PS5Debug</button>
             </div>
 
         </div>
     </div>
 
-    <!-- ================= STATUS ================= -->
     <div id="status">Ready…</div>
 
 </div>
 
 <script>
-/* ================= LOAD SAVED IP/PORT ================= */
-window.addEventListener("load", () => {
-    const savedIP = localStorage.getItem("ps5_ip");
-    const savedPort = localStorage.getItem("ps5_port");
 
-    if (savedIP) document.getElementById("ipInput").value = savedIP;
-    if (savedPort) document.getElementById("portInput").value = savedPort;
-});
+/* Load saved IP */
+window.onload = () => {
+    let saved = localStorage.getItem("ps5_ip");
+    if (saved) document.getElementById("ipInput").value = saved;
+};
 
-/* ================= SAVE IP/PORT ================= */
-function saveIPPort() {
-    const ip = document.getElementById("ipInput").value.trim();
-    const port = document.getElementById("portInput").value.trim();
-
-    if (!ip || !port) {
-        showMessage("⚠️ ادخل IP و Port", "error");
-        return;
-    }
+/* Save IP */
+function saveIP() {
+    let ip = document.getElementById("ipInput").value.trim();
+    if (!ip) { showMessage("Enter IP first!", "error"); return;}
 
     localStorage.setItem("ps5_ip", ip);
-    localStorage.setItem("ps5_port", port);
-
-    showMessage("✔️ Saved Successfully!", "success");
+    showMessage("✔️ Saved!", "success");
 }
 
-/* ================= TABS ================= */
+/* Tabs */
 function switchTab(n) {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
@@ -259,46 +243,44 @@ function switchTab(n) {
     document.getElementById("section" + n).classList.add("active");
 }
 
-/* ================= SEND PAYLOAD WEBSOCKET ================= */
-async function sendPayloadWS(url) {
-    const ip = localStorage.getItem("ps5_ip");
-    const port = localStorage.getItem("ps5_port");
+/* Send payload to PS5 UMTX2 kernel loader */
+async function sendPayloadFile(path) {
+    let ip = localStorage.getItem("ps5_ip");
 
-    if (!ip || !port) {
-        showMessage("⚠️ رجاءً ادخل IP و Port أولاً", "error");
+    if (!ip) {
+        showMessage("⚠️ Enter IP first!", "error");
         return;
     }
 
-    showMessage("⬇️ Downloading payload...");
+    showMessage("Downloading payload...");
 
     try {
-        let res = await fetch(url);
+        let res = await fetch(path);
         let payload = await res.arrayBuffer();
 
-        showMessage("🔌 Connecting to PS5 WebSocket...");
+        showMessage("Sending to PS5...");
 
-        let ws = new WebSocket(`ws://${ip}:${port}`);
-        ws.binaryType = "arraybuffer";
+        await fetch(`http://${ip}/payload`, {
+            method: "POST",
+            headers: { "Content-Type": "application/octet-stream" },
+            body: payload
+        });
 
-        ws.onopen = () => {
-            ws.send(payload);
-            showMessage("✔️ Payload sent!", "success");
-            ws.close();
-        };
+        showMessage("✔️ Payload sent!", "success");
 
-        ws.onerror = () => showMessage("❌ Connection failed!", "error");
-
-    } catch (err) {
-        showMessage("❌ Error: " + err.message, "error");
+    } catch (e) {
+        showMessage("❌ Error: " + e.message, "error");
     }
 }
 
-/* ================= STATUS MESSAGE ================= */
-function showMessage(msg, type) {
+/* Status */
+function showMessage(msg, type="") {
     const el = document.getElementById("status");
     el.textContent = msg;
-    el.style.color = type === "error" ? "red" : (type === "success" ? "lightgreen" : "white");
+    el.style.color = type === "error" ? "red" :
+                     type === "success" ? "lightgreen" : "white";
 }
+
 </script>
 
 </body>
