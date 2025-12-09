@@ -1,1 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PS5 Host Payloads</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
+<style>
+    body {
+        background: url(img/xmb.png) no-repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-family: system-ui, Arial;
+        text-align: center;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    /* ==== Tabs Style ==== */
+    .tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #444;
+    }
+
+    .tab {
+        padding: 10px 25px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ccc;
+        border-bottom: 3px solid transparent;
+        transition: 0.3s;
+    }
+
+    .tab.active {
+        color: #fff;
+        border-bottom: 3px solid #1e90ff;
+    }
+
+    .section {
+        display: none;
+    }
+
+    .section.active {
+        display: block;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+        margin-bottom: 25px;
+    }
+
+    .payload-card {
+        background: #111;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .payload-card img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 6px;
+    }
+
+    .payload-card button {
+        width: 100%;
+        padding: 6px;
+        background: #1e90ff;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+    }
+
+    #status {
+        margin-top: 20px;
+        background: rgba(0,0,0,0.5);
+        padding: 10px;
+        border-radius: 10px;
+        min-height: 40px;
+        font-size: 14px;
+        white-space: pre-line;
+    }
+
+    #loader {
+        display: none;
+        margin-top: 10px;
+        font-size: 16px;
+        color: yellow;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>PS5 Host Payloads</h1>
+    <p><img src="img/PS_Loaders.png" width="128" alt=""></p>
+
+    <h3>Target: 127.0.0.1 : 9021 (elfldr)</h3>
+
+    <!-- ============ Tabs ============ -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab(1)">Payloads</div>
+        <div class="tab" onclick="switchTab(2)">Themes</div>
+        <div class="tab" onclick="switchTab(3)">HomeBrew</div>
+    </div>
+
+    <!-- ============ Section 1 ============ -->
+    <div id="section1" class="section active">
+        <div class="grid">
+
+            <div class="payload-card">
+                <img src="img/youtube_block_v1.4.png">
+                <button onclick="sendPayload('payloads/yt_blocker1.4.elf')">YT Block v1.4</button>
+            </div>
+			
+            <div class="payload-card">
+                <img src="img/youtube_block.png">
+                <button onclick="sendPayload('payloads/yt_blocker1.3.elf')">YT Block v1.3</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/ftpsrv1.4.png">
+                <button onclick="sendPayload('payloads/ftpsrv-ps5.elf')">ftpsv-v1.4</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/etaHEN_2.4b.png">
+                <button onclick="sendPayload('payloads/etaHEN-2.4B.bin')">etaHEN 2.4B</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/online_json.png">
+                <button onclick="sendPayload('payloads/online_json.elf')">Online ID</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============ Section 2 ============ -->
+    <div id="section2" class="section">
+        <div class="grid">
+
+            <div class="payload-card">
+                <img src="img/ghost-of-yotei.png">
+                <button onclick="sendPayload('payloads/themes_ps.elf')">Ghost Theme</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/replace_icon.png">
+                <button onclick="sendPayload('payloads/replace_icon.elf')">Replace Icon</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/Apps_logos.png">
+                <button onclick="sendPayload('payloads/Apps_logos.elf')">Apps_logos</button>
+            </div>
+
+        </div>
+    </div>
+	
+    <!-- ============ Section 3 ============ -->
+	<div id="section3" class="section">
+        <div class="grid">
+            <div class="payload-card">
+                <img src="img/websrv-ps5.png">
+                <button onclick="sendPayload('payloads/websrv-ps5.elf')">websrv-ps5</button>
+            </div>
+			
+        <div class="payload-card">
+                <img src="img/ps5debug_v1.0b5.png">
+                <button onclick="sendPayload('payloads/ps5debug_v1.0b5.elf')">ps5debug_v1.0b5</button>
+          </div>
+        </div>
+    </div>
+
+    <!-- نضع النص واللودر منفصلين -->
+    <div id="status"><span id="statusText">Ready…</span></div>
+    <div id="loader">Sending payload...</div>
+
+</div>
+
+<script>
+function switchTab(n) {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+
+    document.querySelectorAll(".tab")[n-1].classList.add("active");
+    document.getElementById("section" + n).classList.add("active");
+}
+
+const SERVER_URL = "http://127.0.0.1:8766/send";
+
+async function sendPayload(filePath) {
+    const loader = document.getElementById("loader");
+    loader.style.display = "block";
+    showMessage("Loading payload: " + filePath);
+
+    try {
+        const res = await fetch(filePath, { cache: "no-cache" });
+        if (!res.ok) {
+            loader.style.display = "none";
+            showMessage("Error loading payload (" + res.status + ")", "error");
+            return;
+        }
+
+        const payload = await res.arrayBuffer();
+        showMessage("Payload size: " + payload.byteLength + " bytes");
+
+        const sendRes = await fetch(SERVER_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/octet-stream" },
+            body: payload
+        });
+
+        loader.style.display = "none";
+
+        if (!sendRes.ok) {
+            showMessage("Error sending payload (" + sendRes.status + ")", "error");
+            return;
+        }
+
+        showMessage("Payload sent!", "success");
+
+    } catch (err) {
+        loader.style.display = "none";
+        showMessage("Error: " + err.message, "error");
+    }
+}
+
+function showMessage(msg, type) {
+    const status = document.getElementById("status");
+    const statusText = document.getElementById("statusText");
+
+    statusText.textContent = msg;
+    status.style.color = type === "error" ? "red" : (type === "success" ? "lightgreen" : "white");
+}
+</script>
+
+</body>
+</html>
