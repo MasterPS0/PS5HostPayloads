@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>PS5 Host Payloads (GitHub Edition)</title>
+<title>PS5 Host Payloads – GitHub Edition</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -18,61 +18,127 @@
 
     .container { max-width: 1100px; margin: auto; padding: 20px; }
 
+    /* INPUT BOX */
+    #ipBox {
+        margin-bottom: 20px;
+        background: rgba(0,0,0,0.5);
+        padding: 12px;
+        border-radius: 10px;
+        display: inline-block;
+    }
+
+    #ipInput, #portInput {
+        padding: 8px;
+        border-radius: 6px;
+        border: none;
+        margin-right: 8px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    #saveBtn {
+        padding: 8px 15px;
+        border-radius: 8px;
+        border: none;
+        background: #1e90ff;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    /* Tabs */
     .tabs {
-        display: flex; justify-content: center;
-        margin-bottom: 20px; border-bottom: 2px solid #444;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #444;
     }
 
     .tab {
-        padding: 10px 25px; cursor: pointer; font-size: 20px;
-        font-weight: bold; color: #ccc; border-bottom: 3px solid transparent;
+        padding: 10px 25px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+        color: #ccc;
+        border-bottom: 3px solid transparent;
+        transition: 0.3s;
     }
-    .tab.active { color: #fff; border-bottom: 3px solid #1e90ff; }
+
+    .tab.active {
+        color: #fff;
+        border-bottom: 3px solid #1e90ff;
+    }
 
     .section { display: none; }
     .section.active { display: block; }
 
+    /* Grid cards */
     .grid {
-        display: grid; grid-template-columns: repeat(6, 1fr);
-        gap: 5px; margin-bottom: 25px;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-bottom: 25px;
     }
 
     .payload-card {
-        background: rgba(0,0,0,0.5); border-radius: 10px;
-        padding: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        background: rgba(0,0,0,0.6);
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
 
-    .payload-card img { width: 100%; border-radius: 8px; margin-bottom: 6px; }
+    .payload-card img {
+        width: 100%;
+        border-radius: 6px;
+        margin-bottom: 6px;
+    }
 
     .payload-card button {
-        width: 100%; padding: 6px; background: #1e90ff;
-        border: none; border-radius: 6px; font-size: 18px;
-        font-weight: bold; color: white; cursor: pointer;
+        width: 100%;
+        padding: 6px;
+        background: #1e90ff;
+        border: none;
+        border-radius: 6px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
     }
 
-    #status { margin-top: 20px; background: rgba(0,0,0,0.5);
-        padding: 10px; border-radius: 10px; min-height: 40px; font-size: 14px;
+    /* Status box */
+    #status {
+        margin-top: 20px;
+        background: rgba(0,0,0,0.5);
+        padding: 12px;
+        border-radius: 10px;
+        min-height: 40px;
+        font-size: 16px;
     }
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="container">
 
     <h1>PS5 Host Payloads – GitHub Edition</h1>
-    <p><img src="img/PS_Loaders.png" width="128" alt=""></p>
+    <p><img src="img/PS_Loaders.png" width="128"></p>
 
-    <h3>Target WebSocket → ws://192.168.137.207:9021</h3>
-
-    <!-- ============ Tabs ============ -->
-    <div class="tabs">
-        <div class="tab active" onclick="switchTab(1)">Payloads</div>
-        <div class="tab" onclick="switchTab(2)">Themes</div>
-        <div class="tab" onclick="switchTab(3)">Homebrew</div>
+    <!-- ================= IP + PORT ================= -->
+    <div id="ipBox">
+        <input id="ipInput" type="text" placeholder="Enter PS5 IP" style="width:160px;">
+        <input id="portInput" type="text" placeholder="Port" style="width:80px;">
+        <button id="saveBtn" onclick="saveIPPort()">SAVE</button>
     </div>
 
-    <!-- ============ SECTION 1 ============ -->
+    <!-- ================= TABS ================= -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab(1)">قسم 1</div>
+        <div class="tab" onclick="switchTab(2)">قسم 2</div>
+        <div class="tab" onclick="switchTab(3)">قسم 3</div>
+    </div>
+
+    <!-- ================= SECTION 1 ================= -->
     <div id="section1" class="section active">
         <div class="grid">
 
@@ -87,6 +153,11 @@
             </div>
 
             <div class="payload-card">
+                <img src="img/ftpsrv1.4.png">
+                <button onclick="sendPayloadWS('payloads/ftpsrv-ps5.elf')">FTPSRV v1.4</button>
+            </div>
+
+            <div class="payload-card">
                 <img src="img/etaHEN_2.4b.png">
                 <button onclick="sendPayloadWS('payloads/etaHEN-2.4B.bin')">etaHEN 2.4B</button>
             </div>
@@ -96,20 +167,10 @@
                 <button onclick="sendPayloadWS('payloads/online_json.elf')">Online ID</button>
             </div>
 
-            <div class="payload-card">
-                <img src="img/backup_download0.png">
-                <button onclick="sendPayloadWS('payloads/backup_download0.elf')">Backup</button>
-            </div>
-
-            <div class="payload-card">
-                <img src="img/restore_download0.png">
-                <button onclick="sendPayloadWS('payloads/restore_download0.elf')">Restore</button>
-            </div>
-
         </div>
     </div>
 
-    <!-- ============ SECTION 2 ============ -->
+    <!-- ================= SECTION 2 ================= -->
     <div id="section2" class="section">
         <div class="grid">
 
@@ -128,36 +189,68 @@
                 <button onclick="sendPayloadWS('payloads/Apps_logos.elf')">Apps Logos</button>
             </div>
 
+            <div class="payload-card">
+                <img src="img/payload9.png">
+                <button onclick="sendPayloadWS('payloads/payload9.bin')">Payload 9</button>
+            </div>
+
+            <div class="payload-card">
+                <img src="img/payload10.png">
+                <button onclick="sendPayloadWS('payloads/payload10.bin')">Payload 10</button>
+            </div>
+
         </div>
     </div>
 
-    <!-- ============ SECTION 3 ============ -->
+    <!-- ================= SECTION 3 ================= -->
     <div id="section3" class="section">
         <div class="grid">
 
             <div class="payload-card">
                 <img src="img/websrv-ps5.png">
-                <button onclick="sendPayloadWS('payloads/websrv-ps5.elf')">websrv0.30.2</button>
-            </div>
-
-            <div class="payload-card">
-                <img src="img/ftpsrv1.4.png">
-                <button onclick="sendPayloadWS('payloads/ftpsrv-ps5.elf')">ftpsrv v1.4</button>
+                <button onclick="sendPayloadWS('payloads/websrv-ps5.elf')">websrv-ps5</button>
             </div>
 
             <div class="payload-card">
                 <img src="img/ps5debug_v1.0b5.png">
-                <button onclick="sendPayloadWS('payloads/ps5debug_v1.0b5.elf')">ps5debug 1.0b5</button>
+                <button onclick="sendPayloadWS('payloads/ps5debug_v1.0b5.elf')">PS5Debug</button>
             </div>
 
         </div>
     </div>
 
-    <div id="status"><span id="statusText">Ready…</span></div>
+    <!-- ================= STATUS ================= -->
+    <div id="status">Ready…</div>
 
 </div>
 
 <script>
+/* ================= LOAD SAVED IP/PORT ================= */
+window.addEventListener("load", () => {
+    const savedIP = localStorage.getItem("ps5_ip");
+    const savedPort = localStorage.getItem("ps5_port");
+
+    if (savedIP) document.getElementById("ipInput").value = savedIP;
+    if (savedPort) document.getElementById("portInput").value = savedPort;
+});
+
+/* ================= SAVE IP/PORT ================= */
+function saveIPPort() {
+    const ip = document.getElementById("ipInput").value.trim();
+    const port = document.getElementById("portInput").value.trim();
+
+    if (!ip || !port) {
+        showMessage("⚠️ ادخل IP و Port", "error");
+        return;
+    }
+
+    localStorage.setItem("ps5_ip", ip);
+    localStorage.setItem("ps5_port", port);
+
+    showMessage("✔️ Saved Successfully!", "success");
+}
+
+/* ================= TABS ================= */
 function switchTab(n) {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
@@ -166,35 +259,45 @@ function switchTab(n) {
     document.getElementById("section" + n).classList.add("active");
 }
 
-function showMessage(msg, type) {
-    const el = document.getElementById("statusText");
-    el.textContent = msg;
-    el.style.color = type === "error" ? "red" : (type === "success" ? "lightgreen" : "white");
-}
-
+/* ================= SEND PAYLOAD WEBSOCKET ================= */
 async function sendPayloadWS(url) {
-    showMessage("Downloading payload...");
+    const ip = localStorage.getItem("ps5_ip");
+    const port = localStorage.getItem("ps5_port");
+
+    if (!ip || !port) {
+        showMessage("⚠️ رجاءً ادخل IP و Port أولاً", "error");
+        return;
+    }
+
+    showMessage("⬇️ Downloading payload...");
 
     try {
-        let file = await fetch(url);
-        let payload = await file.arrayBuffer();
+        let res = await fetch(url);
+        let payload = await res.arrayBuffer();
 
-        showMessage("Connecting to PS5 WebSocket…");
+        showMessage("🔌 Connecting to PS5 WebSocket...");
 
-        let ws = new WebSocket("ws://127.0.0.1:9021");
+        let ws = new WebSocket(`ws://${ip}:${port}`);
         ws.binaryType = "arraybuffer";
 
         ws.onopen = () => {
             ws.send(payload);
-            showMessage("Payload sent!", "success");
+            showMessage("✔️ Payload sent!", "success");
             ws.close();
         };
 
-        ws.onerror = () => showMessage("❌ WebSocket connection failed", "error");
+        ws.onerror = () => showMessage("❌ Connection failed!", "error");
 
     } catch (err) {
         showMessage("❌ Error: " + err.message, "error");
     }
+}
+
+/* ================= STATUS MESSAGE ================= */
+function showMessage(msg, type) {
+    const el = document.getElementById("status");
+    el.textContent = msg;
+    el.style.color = type === "error" ? "red" : (type === "success" ? "lightgreen" : "white");
 }
 </script>
 
