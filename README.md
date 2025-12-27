@@ -6,7 +6,9 @@
 
 ps5autoloader.elf v1.1 🆕
 > - /data/ps5_autoloader/
+
 ├── autoload.txt
+
 └── etaHEN-2.5B.bin
 
 - ftpsrv-ps5.elf v1.4
