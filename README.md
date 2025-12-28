@@ -29,7 +29,7 @@ ps5autoloader.elf v1.1 🆕
 1. First, install the app on your PS5
 2. PSHP20002.pkg
  
-## 2 send a payload mps0.elf to the 9021 port device PS5 😎
+## 2 send a payload PS5HostPayloads.elf to the 9021 port device PS5 😎
 
 ## 3 open the PS5 Host Payloads app. Enjoy the payloads 🥳
 
