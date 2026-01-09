@@ -11,7 +11,7 @@ ps5autoloader.elf v1.1 🆕
 
 └── etaHEN-2.5B.bin
 
-- ftpsrv-ps5.elf v1.4
+- ftpsrv-ps5.elf v1.5 🆕
 - kstuff.elf v1.6.6 🆕
 - online_json.elf v1.0
 - ps5debug_v1.0b5.elf
